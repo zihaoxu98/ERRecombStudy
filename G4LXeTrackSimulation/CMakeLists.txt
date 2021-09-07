@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(test)
+project(run)
 
 option(VIS "Build example with Geant4 UI and Vis drivers" OFF)
 if(VIS)
@@ -15,8 +15,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cpp)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
-add_executable(test main.cpp ${sources} ${headers})
-target_link_libraries(test ${Geant4_LIBRARIES})
+add_executable(run main.cpp ${sources} ${headers})
+target_link_libraries(run ${Geant4_LIBRARIES})
 
 
 
