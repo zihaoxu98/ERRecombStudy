@@ -25,12 +25,15 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* aStep)
     
     G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
     
-    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-    analysisManager->FillNtupleIColumn(0, evt);
-    analysisManager->FillNtupleDColumn(1, Edel/keV);
-    analysisManager->FillNtupleDColumn(2, pos[0]/um);
-    analysisManager->FillNtupleDColumn(3, pos[1]/um);
-    analysisManager->FillNtupleDColumn(4, pos[2]/um);
-    analysisManager->AddNtupleRow();
+    if(aStep->GetTrack()->GetParentID() == 0)
+    {
+        G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+        analysisManager->FillNtupleIColumn(0, evt);
+        analysisManager->FillNtupleDColumn(1, Edel/keV);
+        analysisManager->FillNtupleDColumn(2, pos[0]/um);
+        analysisManager->FillNtupleDColumn(3, pos[1]/um);
+        analysisManager->FillNtupleDColumn(4, pos[2]/um);
+        analysisManager->AddNtupleRow();
+    }
 }
 

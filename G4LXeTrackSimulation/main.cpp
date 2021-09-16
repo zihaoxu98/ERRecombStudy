@@ -14,7 +14,7 @@ G4int n_event = 1;
 #endif
 
 #ifndef e_keV
-G4double e_keV = 10.0;
+G4double e_keV = 1.0;
 #endif
 
 #ifndef file_name
