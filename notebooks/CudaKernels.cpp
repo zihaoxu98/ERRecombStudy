@@ -280,7 +280,7 @@ __global__ void calculate_recomb(
     int *map = arg_fsort(X_edge, length*2, icache, fcache);
     apply_map_to_farray(X_edge, map, length*2, fcache);
     apply_map_to_iarray(X_edge_ID, map, length*2, &icache[2*length]);
-    int *tmp = arg_isort(X_edge_ID, length*2, icache, &icache[2*length]);]
+    int *tmp = arg_isort(X_edge_ID, length*2, icache, &icache[2*length]);
     set_iarray_values(X_edge_ID, tmp, length*2);
     for(int i = 0; i < length; i++)
         if(X_edge_ID[i*2] > X_edge_ID[i*2+1])
