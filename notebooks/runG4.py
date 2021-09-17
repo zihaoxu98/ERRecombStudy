@@ -1,6 +1,6 @@
 import os
 import numpy as np
-import utils
+from utils import *
 from tqdm import tqdm
 
 # float_to_hex = lambda f: float.hex(float(f)).upper()
