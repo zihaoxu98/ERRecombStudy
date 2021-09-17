@@ -183,17 +183,18 @@ __device__ void bubble_sort_iarr_by_fkey(int *arr, float *key, int length)
 {
     for(int i = 0; i < length-1; i++)
         for(int j = 0; j < length-1-i; j++)
-            if(arr[j] > arr[j+1])
+            if(key[j] > key[j+1])
             {
                 iswap(&arr[j], &arr[j+1]);
                 fswap(&key[j], &key[j+1]);
             }
+    
 }
 __device__ void bubble_sort_iarr_by_ikey(int *arr, int *key, int length)
 {
     for(int i = 0; i < length-1; i++)
         for(int j = 0; j < length-1-i; j++)
-            if(arr[j] > arr[j+1])
+            if(key[j] > key[j+1])
             {
                 iswap(&arr[j], &arr[j+1]);
                 iswap(&key[j], &key[j+1]);
@@ -258,8 +259,8 @@ __global__ void calculate_recomb(
         offset += prev_num_grid*prev_num_grid;
     }
     weight = &weight[offset];
-    fcache = &fcache[left*2];
-    icache = &icache[left*2];
+    fcache = &fcache[left*4];
+    icache = &icache[left*4];
 
     // model parameters
     float alpha = params[0];
@@ -275,10 +276,11 @@ __global__ void calculate_recomb(
         Y_edge_ID[i*2] = Y_edge_ID[i*2+1] = i;
     }
     
+    
     int *map = arg_fsort(X_edge, length*2, icache, fcache);
     apply_map_to_farray(X_edge, map, length*2, fcache);
     apply_map_to_iarray(X_edge_ID, map, length*2, &icache[2*length]);
-    int *tmp = arg_isort(X_edge_ID, length*2, icache, &icache[2*length]);
+    int *tmp = arg_isort(X_edge_ID, length*2, icache, &icache[2*length]);]
     set_iarray_values(X_edge_ID, tmp, length*2);
     for(int i = 0; i < length; i++)
         if(X_edge_ID[i*2] > X_edge_ID[i*2+1])
@@ -315,4 +317,6 @@ __global__ void calculate_recomb(
     for(int i = 0; i < num_grid*num_grid; i++)
         r += weight[i];
     recomb[event_id]=r;
+    
+    printf("%d\t%f\n", event_id, r);
 }
