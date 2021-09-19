@@ -231,9 +231,9 @@ __global__ void calculate_recomb(
     int *X_edge_ID,
     int *Y_edge_ID,
     float *weight,
-    float *recomb,
     float *fcache,
-    int *icache
+    int *icache,
+    float *recomb
 )
 {
     int event_id = threadIdx.x;
@@ -280,7 +280,7 @@ __global__ void calculate_recomb(
     int *map = arg_fsort(X_edge, length*2, icache, fcache);
     apply_map_to_farray(X_edge, map, length*2, fcache);
     apply_map_to_iarray(X_edge_ID, map, length*2, &icache[2*length]);
-    int *tmp = arg_isort(X_edge_ID, length*2, icache, &icache[2*length]);]
+    int *tmp = arg_isort(X_edge_ID, length*2, icache, &icache[2*length]);
     set_iarray_values(X_edge_ID, tmp, length*2);
     for(int i = 0; i < length; i++)
         if(X_edge_ID[i*2] > X_edge_ID[i*2+1])
@@ -295,6 +295,7 @@ __global__ void calculate_recomb(
         if(Y_edge_ID[i*2] > Y_edge_ID[i*2+1])
             iswap(&Y_edge_ID[i*2], &Y_edge_ID[i*2+1]);
 
+    float energy = 0;
     for(int i = 0; i < length; i++)
     {
         int x_left = X_edge_ID[i*2];
@@ -302,10 +303,18 @@ __global__ void calculate_recomb(
         int y_left = Y_edge_ID[i*2];
         int y_right = Y_edge_ID[i*2+1];
         float density = Ed[i] / 4.0 / alpha / alpha;
+        energy += Ed[i];
         
         for(int indx = x_left; indx < x_right; indx++)
             for(int indy = y_left; indy < y_right; indy++)
                 weight[indx + indy * num_grid] += density;
+    }
+    
+    
+    for(int i = 0; i < num_grid*num_grid; i++)
+    {
+        if(beta * weight[i] < 1e-5) weight[i] = weight[i] / energy;
+        else weight[i] = logf(1.0 + weight[i] * beta) / beta / energy;
     }
     
     // test
@@ -316,7 +325,7 @@ __global__ void calculate_recomb(
     float r = 0;
     for(int i = 0; i < num_grid*num_grid; i++)
         r += weight[i];
-    recomb[event_id]=r;
+    recomb[event_id] = 1 - r;
     
-    printf("%d\t%f\n", event_id, r);
+//     printf("%d\t%f\n", event_id, r);
 }

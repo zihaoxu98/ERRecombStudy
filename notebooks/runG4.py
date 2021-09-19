@@ -9,7 +9,7 @@ from tqdm import tqdm
 path = '/home/zihaoxu/'
 os.system('cd {path}/Geant4/geant4.10.07.p02-install/bin/ && sh geant4.sh'.format(path=path))
 
-n_event = 1000
+n_event = 10000
 
 for e_keV in tqdm(np.linspace(0, 20, 21)[1:]):
 
