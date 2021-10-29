@@ -27,7 +27,6 @@ LXePhysicsList::~LXePhysicsList() {}
 void LXePhysicsList::ConstructParticle()
 {
     G4Gamma::GammaDefinition();
-    //G4OpticalPhoton::OpticalPhotonDefinition();
     G4Electron::ElectronDefinition();
     G4GenericIon::GenericIonDefinition();
 }
@@ -55,13 +54,13 @@ void LXePhysicsList::SetCuts()
 #include "G4VUserPhysicsList.hh"
 #include "G4PhysicsListHelper.hh"
 
-#include "G4ComptonScattering.hh"
-#include "G4GammaConversion.hh"
-#include "G4PhotoElectricEffect.hh"
+#include "G4LivermoreComptonModel.hh"
+#include "G4LivermorePhotoElectricModel.hh"
+#include "G4LivermoreRayleighModel.hh"
 
 #include "G4eMultipleScattering.hh"
-#include "G4eIonisation.hh"
-#include "G4eBremsstrahlung.hh"
+#include "G4LivermoreIonisationModel.hh"
+#include "G4LivermoreBremsstrahlungModel.hh"
 
 #include "G4hMultipleScattering.hh"
 #include "G4ionIonisation.hh"
@@ -80,7 +79,7 @@ void LXePhysicsList::ConstructEM()
         if (particleName == "gamma") {         
             ph->RegisterProcess(new G4PhotoElectricEffect, particle);
             ph->RegisterProcess(new G4ComptonScattering,   particle);
-            ph->RegisterProcess(new G4GammaConversion,     particle);
+            ph->RegisterProcess(new G4RayleighScattering,  particle);
         } else if (particleName == "e-") {
             ph->RegisterProcess(new G4eMultipleScattering, particle);
             ph->RegisterProcess(new G4eIonisation,         particle);
