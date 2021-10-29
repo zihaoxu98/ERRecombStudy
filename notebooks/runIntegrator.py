@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.stats import special_ortho_group as SO
 from time import time
 
 import pycuda.driver as drv
@@ -13,8 +14,8 @@ from tqdm import tqdm
 num = 1000
 n_alpha = 30
 n_beta = 30
-alpha_upper = 10.0
-beta_upper = 30.0
+alpha_upper = 5.0
+beta_upper = 10.0
 
 alpha = np.linspace(0, alpha_upper, n_alpha + 1)[1:]
 beta = np.linspace(0, beta_upper, n_beta + 1)[1:]
@@ -101,11 +102,7 @@ def free_gpu_args(args):
         alloc = gpu_arr.get_device_alloc()
         alloc.free()
 
-        
-        
-        
-        
-for fn in filenames[:2]:
+for fn in filenames[:]:
     energy = decode_energy(fn)
 
     print()
@@ -119,6 +116,13 @@ for fn in filenames[:2]:
     print("#############################################################")
     print()
     print()
+    
+    if energy < 13.5:
+        continue
+    if energy > 14.0:
+        continue
+    if glob.glob(fn.replace('.root', '.pkl')) != []:
+        continue
 
     with uproot.open(fn) as file:
         rawEventID = file['LXe;1']['Event'].array(library='np')
@@ -135,6 +139,16 @@ for fn in filenames[:2]:
     Y = rawY[mask]
     Z = rawZ[mask]
     EventID = rawEventID[mask]
+    
+    SO3 = SO(3)
+    tmp = np.stack([X, Y, Z]).T
+    for _id in tqdm(range(num), desc='Rotating'):
+        mask = EventID == _id
+        rot = SO3.rvs()
+        tmp[mask] = np.dot(tmp[mask], rot)
+    X = tmp[:, 0]
+    Y = tmp[:, 1]
+    Z = tmp[:, 2]
 
     gpu_args, kwargs = make_gpu_args(X, Y, Ed, EventID, [0.0, 0.0])
 
@@ -154,7 +168,7 @@ for fn in filenames[:2]:
             func(*gpu_args, block=kwargs['auto_block'])
 
             cache[i * n_beta + j]['alpha'] = alpha[i]
-            cache[i * n_beta + j]['beta'] = beta[i]
+            cache[i * n_beta + j]['beta'] = beta[j]
             cache[i * n_beta + j]['recomb'] = kwargs['recomb_alloc'].array
 
     free_gpu_args(gpu_args)
