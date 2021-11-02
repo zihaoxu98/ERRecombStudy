@@ -79,7 +79,7 @@ void LXePhysicsList::ConstructEM()
         if (particleName == "gamma") {         
             ph->RegisterProcess(new G4PhotoElectricEffect, particle);
             ph->RegisterProcess(new G4ComptonScattering,   particle);
-            ph->RegisterProcess(new G4RayleighScattering,  particle);
+//             ph->RegisterProcess(new G4RayleighScattering,  particle);
         } else if (particleName == "e-") {
             ph->RegisterProcess(new G4eMultipleScattering, particle);
             ph->RegisterProcess(new G4eIonisation,         particle);
