@@ -1,5 +1,5 @@
 #include "LXeSensitiveDetector.hh"
-#include "g4root.hh"
+#include "G4AnalysisManager.hh"
 
 LXeSensitiveDetector::LXeSensitiveDetector(G4String name) : G4VSensitiveDetector(name)
 {}

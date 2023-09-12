@@ -18,7 +18,7 @@ G4double e_keV = 1.0;
 #endif
 
 #ifndef file_name
-G4String file_name = "LXe";
+G4String file_name = "LXe.root";
 #endif
 
 int main(int argc,char** argv)
@@ -49,7 +49,7 @@ int main(int argc,char** argv)
 
     auto* run_action = new LXeRunAction;
     runManager->SetUserAction(run_action);
-    
+
     auto* step_action = new LXeSteppingAction;
     runManager->SetUserAction(step_action);
 

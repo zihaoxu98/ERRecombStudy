@@ -17,6 +17,3 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 add_executable(run main.cpp ${sources} ${headers})
 target_link_libraries(run ${Geant4_LIBRARIES})
-
-
-

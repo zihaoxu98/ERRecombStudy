@@ -1,6 +1,6 @@
 #include "G4Run.hh"
 #include "G4RunManager.hh"
-#include "g4root.hh"
+#include "G4AnalysisManager.hh"
 
 #include "LXeRunAction.hh"
 #include "global.hh"
@@ -12,7 +12,6 @@ LXeRunAction::LXeRunAction()
     analysisManager->SetFileName(file_name);
 
     analysisManager->CreateNtuple("LXe", "Particles");
-
     analysisManager->CreateNtupleIColumn("Event");
     analysisManager->CreateNtupleDColumn("Ed");
     analysisManager->CreateNtupleDColumn("X");
@@ -29,7 +28,7 @@ LXeRunAction::~LXeRunAction()
 void LXeRunAction::BeginOfRunAction(const G4Run* run)
 {
     G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-    analysisManager->OpenFile();
+    analysisManager->OpenFile(file_name);
 }
 
 void LXeRunAction::EndOfRunAction(const G4Run* run)
@@ -38,8 +37,3 @@ void LXeRunAction::EndOfRunAction(const G4Run* run)
     analysisManager->Write();
     analysisManager->CloseFile();
 }
-
-
-
-
-

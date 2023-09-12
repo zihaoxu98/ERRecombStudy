@@ -1,6 +1,6 @@
 #include "G4SystemOfUnits.hh"
 #include "G4RunManager.hh"
-#include "g4root.hh"
+#include "G4AnalysisManager.hh"
 
 #include "LXeSteppingAction.hh"
 
