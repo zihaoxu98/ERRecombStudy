@@ -10,7 +10,7 @@
 
 // DEFINE GLOBAL VARIABLES
 #ifndef n_event
-G4int n_event = 1000;
+G4int n_event = 1;
 #endif
 
 #ifndef e_keV
@@ -59,5 +59,3 @@ int main(int argc,char** argv)
     delete runManager;
     return 0;
 }
-
-

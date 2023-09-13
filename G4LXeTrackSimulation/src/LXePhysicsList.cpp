@@ -34,6 +34,5 @@ void LXePhysicsList::ConstructEM()
 {
     G4int verbose = GetVerboseLevel();
     RegisterPhysics(new G4EmLivermorePhysics(verbose, ""));
-    RegisterPhysics(new G4IonElasticPhysics(verbose, ""));
-    RegisterPhysics(new G4IonPhysics(verbose, ""));
+    RegisterPhysics(new G4IonElasticPhysics(verbose));
 }

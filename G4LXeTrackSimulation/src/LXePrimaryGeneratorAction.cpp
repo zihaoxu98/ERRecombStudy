@@ -15,7 +15,7 @@ LXePrimaryGeneratorAction::LXePrimaryGeneratorAction()
     G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
     G4String particleName;
     particleGun->SetParticleDefinition(particleTable->FindParticle(particleName="e-"));
-    particleGun->SetParticleEnergy(e_keV*keV);
+    particleGun->SetParticleEnergy(e_keV * keV);
     particleGun->SetParticlePosition(G4ThreeVector(0.0, 0.0, 0.0));
 }
 

@@ -23,10 +23,10 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* aStep)
     {
         G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
         analysisManager->FillNtupleIColumn(0, evt);
-        analysisManager->FillNtupleDColumn(1, Edel/keV);
-        analysisManager->FillNtupleDColumn(2, pos[0]/um);
-        analysisManager->FillNtupleDColumn(3, pos[1]/um);
-        analysisManager->FillNtupleDColumn(4, pos[2]/um);
+        analysisManager->FillNtupleDColumn(1, Edel / eV);
+        analysisManager->FillNtupleDColumn(2, pos[0] / um);
+        analysisManager->FillNtupleDColumn(3, pos[1] / um);
+        analysisManager->FillNtupleDColumn(4, pos[2] / um);
         analysisManager->AddNtupleRow();
     }
 }
