@@ -31,4 +31,3 @@ void LXeDetectorConstruction::ConstructSDandField()
     LXeSensitiveDetector *sensDet = new LXeSensitiveDetector("LXeSensitiveDetector");
     SetSensitiveDetector("LXe_log", sensDet, true);
 }
-

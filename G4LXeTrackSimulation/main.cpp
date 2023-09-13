@@ -10,11 +10,11 @@
 
 // DEFINE GLOBAL VARIABLES
 #ifndef n_event
-G4int n_event = 1;
+G4int n_event = 1000;
 #endif
 
 #ifndef e_keV
-G4double e_keV = 1.0;
+G4double e_keV = 15.0;
 #endif
 
 #ifndef file_name

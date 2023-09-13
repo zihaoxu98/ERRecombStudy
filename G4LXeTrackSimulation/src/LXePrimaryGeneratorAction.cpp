@@ -30,4 +30,3 @@ void LXePrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     particleGun->SetParticleMomentumDirection(v);
     particleGun->GeneratePrimaryVertex(anEvent);
 }
-

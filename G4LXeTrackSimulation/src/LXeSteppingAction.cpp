@@ -4,15 +4,9 @@
 
 #include "LXeSteppingAction.hh"
 
-LXeSteppingAction::LXeSteppingAction()
-{
-}
+LXeSteppingAction::LXeSteppingAction() {}
 
-
-LXeSteppingAction::~LXeSteppingAction()
-{
-}
-
+LXeSteppingAction::~LXeSteppingAction() {}
 
 void LXeSteppingAction::UserSteppingAction(const G4Step* aStep)
 {
@@ -36,4 +30,3 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* aStep)
         analysisManager->AddNtupleRow();
     }
 }
-
