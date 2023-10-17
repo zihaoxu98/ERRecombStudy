@@ -96,8 +96,7 @@ void LXePrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
             particleGun->SetParticlePosition(G4ThreeVector(0.0, 0.0, 0.0));
             particleGun->SetParticleMomentumDirection(RandomDirection());
             particleGun->GeneratePrimaryVertex(anEvent);
-
-            G4cout << "Particle: " << particle_name << ", Energy: " << e_eV << " eV" << G4endl;
+            // G4cout << "Particle: " << particle_name << ", Energy: " << e_eV << " eV" << G4endl;
         }
     }
 }
