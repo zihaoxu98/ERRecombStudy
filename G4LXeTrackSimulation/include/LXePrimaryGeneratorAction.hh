@@ -1,5 +1,9 @@
 #include "G4VUserPrimaryGeneratorAction.hh"
 
+#include "G4ThreeVector.hh"
+
+#include <random>
+
 class G4ParticleGun;
 class G4Event;
 
@@ -14,4 +18,5 @@ class LXePrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 
     private:
         G4ParticleGun* particleGun;
+        G4ThreeVector RandomDirection();
 };

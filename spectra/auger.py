@@ -93,3 +93,50 @@ class Auger():
                 else:
                     products.append(("e-", energy[i]))
         return products
+
+
+with open('./data/xenon_auger.dat', 'r') as file:
+    data = file.read()
+    lines = data.split('\n')
+    subshell_index = []
+    subshell_energy = []
+    subshell_num_e = []
+    subshell_label = []
+
+    concurrent_index = None
+    for line in lines:
+        if "subshell index" in line:
+            concurrent_index = int(line.split('-')[0].strip())
+            subshell_index.append(concurrent_index)
+        if "subshell binding energy" in line:
+            subshell_energy.append(float(line.split('-')[0].strip()))
+        if "number of electrons when neutral" in line:
+            subshell_num_e.append(int(line.split('-')[0].strip()))
+        if "subshell label" in line:
+            label = line.split('-')[0].strip()
+            subshell_label.append((concurrent_index, label))
+    
+    subshell_index = np.array(subshell_index)
+    subshell_energy = np.array(subshell_energy)
+    subshell_num_e = np.array(subshell_num_e)
+    subshell_label = dict(subshell_label)
+
+ag = Auger()
+
+def simulate_neutrino(total_energy):
+    products = []
+
+    allowed_subshell_mask = subshell_energy < total_energy
+    prob = subshell_num_e[allowed_subshell_mask]
+    prob = prob / prob.sum()
+    shell = subshell_index[allowed_subshell_mask]
+
+    i = np.random.choice(np.arange(len(shell)), p=prob)
+    vacancy = shell[i]
+    binding_energy = subshell_energy[allowed_subshell_mask][i]
+
+    products.append(("e-", total_energy - binding_energy))
+    ag.vacancy_list = [vacancy]
+    products.extend(ag.simulate())
+
+    return products

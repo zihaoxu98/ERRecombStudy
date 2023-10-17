@@ -6,3 +6,5 @@ extern G4int n_event;
 extern G4double e_keV;
 
 extern G4String file_name;
+
+extern G4int sim_flag;

@@ -21,6 +21,10 @@ G4double e_keV = 15.0;
 G4String file_name = "LXe.root";
 #endif
 
+#ifndef sim_flag
+G4int sim_flag = 1;
+#endif
+
 int main(int argc,char** argv)
 {
     for(int i=0; i<argc; i++)
@@ -28,12 +32,14 @@ int main(int argc,char** argv)
         if      (argv[i] == G4String("--n_event"))   n_event   = StringToInt(argv[++i]);
         else if (argv[i] == G4String("--e_keV"))     e_keV     = StringToDouble(argv[++i]);
         else if (argv[i] == G4String("--file_name")) file_name = StringToString(argv[++i]);
+        else if (argv[i] == G4String("--sim_flag"))  sim_flag  = StringToInt(argv[++i]);
     }
     
     G4cout << "=============================================" << G4endl
-           << "|| n_event=" << n_event << G4endl
-           << "|| e_keV=" << e_keV << G4endl
+           << "|| n_event="   << n_event   << G4endl
+           << "|| e_keV="     << e_keV     << G4endl
            << "|| file_name=" << file_name << G4endl
+           << "|| sim_flag="  << sim_flag  << G4endl
            << "=============================================" << G4endl;
     
     G4RunManager* runManager = new G4RunManager;
