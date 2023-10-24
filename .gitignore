@@ -9,3 +9,5 @@ __pycache__
 *.root
 *.tar*
 *.dat
+spectra/data/136Xe_hsd_2ds.txt
+spectra/data/136Xe_hsd_cor.txt
