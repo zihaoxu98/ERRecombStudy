@@ -8,5 +8,7 @@ class LXeSteppingAction : public G4UserSteppingAction
     public:
         LXeSteppingAction();
         ~LXeSteppingAction();
-        virtual void UserSteppingAction(const G4Step* step);   
+        virtual void UserSteppingAction(const G4Step* step);
+    private:
+        double total_e;
 };

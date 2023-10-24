@@ -22,7 +22,7 @@ G4String file_name = "LXe.root";
 #endif
 
 #ifndef sim_flag
-G4int sim_flag = 1;
+G4int sim_flag = 0;
 #endif
 
 int main(int argc,char** argv)

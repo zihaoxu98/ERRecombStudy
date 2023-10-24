@@ -4,7 +4,6 @@
 
 #include "G4EmLivermorePhysics.hh"
 #include "G4IonElasticPhysics.hh"
-#include "G4IonPhysics.hh"
 
 #include "G4VModularPhysicsList.hh"
 #include "LXePhysicsList.hh"

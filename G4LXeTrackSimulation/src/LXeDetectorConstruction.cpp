@@ -16,7 +16,7 @@ G4VPhysicalVolume* LXeDetectorConstruction::Construct()
     G4double density = 3.1 * g/cm3;
     G4Material* LXe = new G4Material("LiquidXenon", Z, A, density);
 
-    G4double lenx = 5. * cm, leny = 5. * cm, lenz = 5. * cm;
+    G4double lenx = 100. * cm, leny = 100. * cm, lenz = 100. * cm;
     G4Box* box = new G4Box("LXe_box", lenx, leny, lenz);
 
     G4LogicalVolume* log = new G4LogicalVolume(box, LXe, "LXe_log", 0, 0, 0);
